@@ -13,6 +13,27 @@ public class InstanceGenerator {
 
     /**
      * Function used to generate a random input
+     * with a given size and each element with as much
+     * digits as the parameter indicates.
+     *
+     * @param digits integer number representing
+     *               the accuracy of the data.
+     * @param size integer number representing
+     *               the number of integers to be
+     *               generated for the sample.
+     * @return A list containing the random sample.
+     */
+    public List<Integer> generateRandomInput(int digits, int size) {
+        List<Integer> v = new ArrayList<>();
+        Random rand = new Random();
+        int seed = (int) (Math.pow(10,digits) - 1);
+        for (int i = 0; i < size; i++)
+            v.add(rand.nextInt(seed));
+        return v;
+    }
+
+    /**
+     * Function used to generate a random input
      * with size 50000 and each element with as much
      * digits as the parameter indicates.
      *
@@ -21,12 +42,7 @@ public class InstanceGenerator {
      * @return A list containing the random sample.
      */
     public List<Integer> generateRandomInput(int digits) {
-        List<Integer> v = new ArrayList<>();
-        Random rand = new Random();
-        int seed = (int) (Math.pow(10,digits) - 1);
-        for (int i = 0; i < SIZE; i++)
-            v.add(rand.nextInt(seed));
-        return v;
+        return generateRandomInput(digits, SIZE);
     }
 
     /**

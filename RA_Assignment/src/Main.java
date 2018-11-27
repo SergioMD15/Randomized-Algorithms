@@ -1,5 +1,8 @@
-import algorithms.Mergesort;
-import algorithms.Quickselect;
+import algorithms.selection.SelectionAlgorithm;
+import algorithms.sorting.Mergesort;
+import algorithms.selection.Quickselect;
+import algorithms.selection.RandomizedMedian;
+import algorithms.sorting.SortingAlgorithm;
 
 import java.util.List;
 
@@ -11,34 +14,60 @@ public class Main {
      */
     private static void printList(List<Integer> list) {
         list.forEach(e -> System.out.print(e + " "));
+        System.out.println();
+    }
+
+    private static void printSelection(SelectionAlgorithm algorithm, List<Integer> list){
+        int result;
+        long before, after;
+
+        System.out.println("#### " +  algorithm.getName().toUpperCase() + " ALGORITHM ####\n");
+
+        before = System.currentTimeMillis();
+        result = algorithm.execute(list);
+        after = System.currentTimeMillis();
+
+        System.out.println("Calculated value of the median: " + result);
+        System.out.println("Total elapsed time: " + (after - before));
+        System.out.println();
+    }
+
+    private static void printSorting(SortingAlgorithm algorithm, List<Integer> list){
+        int median;
+        long before, after;
+
+        System.out.println("#### " +  algorithm.getName().toUpperCase() + " ALGORITHM ####\n");
+
+        before = System.currentTimeMillis();
+        algorithm.sort(list);
+        median = median(list);
+        after = System.currentTimeMillis();
+
+        //System.out.println("Sorted list:");
+        //printList(list);
+        System.out.println("Real median of the array:" + median);
+        System.out.println("Total elapsed time: " + (after - before));
+        System.out.println();
     }
 
     // Driver method
     public static void main(String args[]) {
         InstanceGenerator ig = new InstanceGenerator();
-        List<Integer> list = ig.generateRandomInput();
+        List<Integer> list = ig.generateRandomInput(5,1000000);
 
-        System.out.println("Given Array:");
-        printList(list);
+        //System.out.println("Given List:");
+        //printList(list);
 
-        Mergesort ms = new Mergesort();
-
-        System.out.println("Median obtained with quickselect:");
-        Quickselect qs = new Quickselect();
-        System.out.println(qs.execute(list));
-
-        //System.out.println("Median obtained with randomized median:");
-        //algorithms.RandomizedMedian rm = new algorithms.RandomizedMedian(ob);
-        //System.out.println(rm.execute(arr));
+        SortingAlgorithm ms = new Mergesort();
+        SelectionAlgorithm qs = new Quickselect();
+        SelectionAlgorithm rm = new RandomizedMedian(ms);
 
 
-        ms.sort(list);
+        printSelection(qs, list);
 
-        System.out.println("\nSorted array");
-        printList(list);
+        printSelection(rm, list);
 
-        System.out.println("\nReal median");
-        median(list);
+        printSorting(ms, list);
     }
 
     /**
@@ -47,13 +76,13 @@ public class Main {
      * @param list The sorted list where the median
      *             will be obtained.
      */
-    private static void median(List<Integer> list){
+    private static int median(List<Integer> list){
         int median;
         if (list.size() % 2 == 0){
             median = (list.get(list.size()/2) + list.get(list.size()/2 - 1))/2;
         } else{
             median = list.get(list.size()/2);
         }
-        System.out.println(median);
+        return median;
     }
 }
