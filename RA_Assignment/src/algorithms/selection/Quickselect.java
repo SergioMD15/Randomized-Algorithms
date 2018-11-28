@@ -1,23 +1,11 @@
 package algorithms.selection;
 
-import algorithms.Algorithm;
-
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Quickselect implements SelectionAlgorithm {
 
-    /**
-     * Function that will be called from the main class
-     * and will initialize the required elements and
-     * then will execute the function representing
-     * the algorithm.
-     *
-     * @param instance List from which we want
-     *                 to get the median.
-     * @return The median of the list.
-     */
     @Override
     public int execute(List<Integer> instance) {
         List<Integer> A = instance;
