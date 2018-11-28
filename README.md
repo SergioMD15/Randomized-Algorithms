@@ -12,4 +12,4 @@ This project consists in implementing two selection algorithms capable of findin
 
 ## Instance Generator
 
-To try the algorithms, at first I'm using instances generated at random, but I will upload soon a file containing at least 100 instances where some of them will represent special cases to test the efficiency of the algorithms.
+To try the algorithms, I'm using instances generated at random. There is a class called InstanceGenerator and it is easy to see how it works.
